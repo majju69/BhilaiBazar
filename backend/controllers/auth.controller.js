@@ -68,7 +68,7 @@ export const login=async (req,res)=>
         }
         else
         {
-            res.status(401).send("Invalid email or password");
+            res.status(400).send("Invalid email or password");
         }
     }
     catch (error)
