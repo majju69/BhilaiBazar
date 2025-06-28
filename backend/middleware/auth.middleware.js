@@ -8,7 +8,7 @@ export const protectRoute=async (req,res,next)=>
         const accessToken=req.cookies.accessToken;
         if(!accessToken)
         {
-            return res.status(401).json({message:"Unauthorized - No access token provided"});
+            return res.status(400).json({message:"Unauthorized - No access token provided"});
         }
         try
         {
@@ -16,7 +16,7 @@ export const protectRoute=async (req,res,next)=>
             const user=await User.findById(decoded.userId).select("-password");
             if(!user)
             {
-                return res.status(401).json({message:"Unauthorized - User not found"});
+                return res.status(400).json({message:"Unauthorized - User not found"});
             }
             req.user=user;
             next();
@@ -25,7 +25,7 @@ export const protectRoute=async (req,res,next)=>
         {
             if(error.name==="TokenExpiredError")
             {
-                return res.status(401).json({message:"Unauthorized - Access token expired"});
+                return res.status(400).json({message:"Unauthorized - Access token expired"});
             }
             throw error;
         }
