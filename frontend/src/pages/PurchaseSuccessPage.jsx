@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useCartStore } from '../stores/useCartStore';
 import axios from '../lib/axios';
 import Confetti from "react-confetti";
+import toast from 'react-hot-toast';
 
 const PurchaseSuccessPage = () => {
 
@@ -20,11 +21,13 @@ const PurchaseSuccessPage = () => {
             try
             {
                 await axios.post("/payments/checkout-success",{sessionId});
+                toast.success("Payment successful");
                 clearCart();
             }
             catch(error)
             {
                 console.log("\nError in handleCheckOutSuccess: ",error.message,"\n");
+                toast.error("Payment failed");
             }
             finally
             {
