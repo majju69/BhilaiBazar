@@ -3,7 +3,7 @@ import { ShoppingCart, ChevronLeft, ChevronRight } from "lucide-react";
 import { useCartStore } from "../stores/useCartStore";
 
 const FeaturedProducts = ({ featuredProducts }) => {
-    console.log(featuredProducts)
+    // console.log(featuredProducts)
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [itemsPerPage, setItemsPerPage] = useState(4);

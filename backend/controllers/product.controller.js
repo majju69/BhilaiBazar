@@ -80,6 +80,12 @@ export const deleteProduct=async (req,res)=>    // untested 1:52:58
         {
             return res.status(404).json({message:"Product not found"});
         }
+        if(product.isFeatured)      // remove if error shown
+        {
+            product.isFeatured=!product.isFeatured;
+            await product.save();
+            await updateFeaturedProductsCache();
+        }
         if(product.image)
         {
             const publicId=product.image.split("/").pop().split(".")[0];
