@@ -9,6 +9,9 @@ export const useCartStore=create((set,get)=>(
         total:0,
         subtotal:0,
         isCouponApplied:false,
+        checkCartSizeIsZero:()=>{
+            return get().cart.length===0;
+        },
         getMyCoupon: async () => {
             try {
                 const response = await axios.get("/coupons");
@@ -44,7 +47,15 @@ export const useCartStore=create((set,get)=>(
             }
         },
         clearCart: async () => {
-            set({ cart: [], coupon: null, total: 0, subtotal: 0 });
+            try {
+                const productId=null;
+                set({ cart: [], coupon: null, total: 0, subtotal: 0 });
+                await axios.delete(`/cart`, { data: { productId } });
+                toast.success("Cart cleared successfully");
+            } catch (error) {
+                toast.error(error.response?.data?.message || "An error occurred while clearing cart");
+            }
+            // set({ cart: [], coupon: null, total: 0, subtotal: 0 });
         },
         addToCart: async (product) => {
             try {
