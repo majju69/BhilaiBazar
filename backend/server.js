@@ -13,17 +13,17 @@ import job from "./lib/cron.js";
 
 const app=express();
 
-if(process.env.NODE_ENV==="production")
-{
-    job.start();
-}
+// if(process.env.NODE_ENV==="production")
+// {
+//     job.start();
+// }
 
 const PORT=process.env.PORT||5001;
 
-app.get("/api/test",(req,res)=>
-{
-    res.status(200).send("Dummy response");
-});
+// app.get("/api/test",(req,res)=>
+// {
+//     res.status(200).send("Dummy response");
+// });
 
 const __dirname=path.resolve();
 
